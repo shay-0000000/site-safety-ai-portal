@@ -3,7 +3,7 @@ ultralytics
 pillow
 numpy
 opencv-python-headless
-torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
-torchvision==0.17.2 --extra-index-url https://download.pytorch.org/whl/cpu
+torch
+torchvision
 requests
 streamlit-geolocation

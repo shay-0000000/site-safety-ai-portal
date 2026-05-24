@@ -1,9 +1,8 @@
 streamlit
 ultralytics
-opencv-python-headless
 pillow
 numpy
-torch
-torchvision
+opencv-python-headless
+torch --index-url https://download.pytorch.org/whl/cpu
 requests
-pandas
+streamlit-geolocation

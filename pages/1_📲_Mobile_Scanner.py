@@ -8,7 +8,7 @@ import requests
 import torch
 import cv2
 import numpy as np
-from streamlit_js_eval import streamlit_js_eval
+from streamlit_geolocation import streamlit_geolocation # 👈 Swapped module
 
 st.set_page_config(page_title="PPE Data Collector", page_icon="📲", layout="centered")
 
@@ -22,21 +22,16 @@ st.write("---")
 # 🚨 PASTE YOUR EXACT NPOINT URL LINK HERE
 BIN_URL = "https://api.npoint.io/f3612bdbb4c148d88d74"
 
-# 🌍 AUTOMATIC GPS LOCATION CAPTURE
+# 🌍 AUTOMATIC GPS LOCATION CAPTURE 
 st.write("### 📍 Location Telemetry")
-location_data = streamlit_js_eval(js_expressions="navigator.geolocation.getCurrentPosition(pos => { window.streamlitCallback(JSON.stringify({lat: pos.coords.latitude, lon: pos.coords.longitude})) }, err => { window.streamlitCallback(null) })", key="geo")
+location = streamlit_geolocation() # 👈 Simple, lightweight execution button element layer
 
 gps_coordinates = "Not Available"
-if location_data:
-    import json as js
-    try:
-        coords = js.loads(location_data)
-        gps_coordinates = f"{round(coords['lat'], 5)}, {round(coords['lon'], 5)}"
-        st.success(f"✅ GPS Position Locked: {gps_coordinates}")
-    except:
-        st.warning("⚠️ Reading location data...")
+if location and location.get('latitude') is not None:
+    gps_coordinates = f"{round(location['latitude'], 5)}, {round(location['longitude'], 5)}"
+    st.success(f"✅ GPS Position Locked: {gps_coordinates}")
 else:
-    st.info("💡 Grant location permissions if prompted by your browser to log site tags.")
+    st.info("💡 Click the tracking location element module above to pass geo-tags to your table registry.")
 
 st.write("---")
 
